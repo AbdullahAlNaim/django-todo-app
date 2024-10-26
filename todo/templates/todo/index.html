@@ -1,11 +1,11 @@
 {% extends 'todo/base.html' %}
 
 {% block content %}
+<main>
     <h1>Todo List</h1>
     <form action="/" method="post">
         {% csrf_token %}
-        <label for="task_name">Task</label>
-        <input type="text">
+        {{ form.task_name }}
         <button type="submit">Add</button>
     </form>
     <ul>
@@ -13,13 +13,21 @@
         <li>
             <span>{{ task.task_name }}</span>
             <span>
-<!--                <form action="/" method="post">-->
-<!--                    {% csrf_token %}-->
-<!--                    <input type="checkbox" name="complete" id="complete">-->
-<!--                </form>-->
+                <form action="/" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="complete" value="complete">
+                    <button type="submit">done</button>
+                </form>
+                <form action="/" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="delete" value="delete">
+                    <button type="submit">delete</button>
+                </form>
             </span>
         </li>
         {% endfor %}
     </ul>
+</main>
+
     
 {% endblock %}
